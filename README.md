@@ -4,7 +4,7 @@ This project provides a **vulnerable API** for students to learn about common se
 
 ## Features & Vulnerabilities
 - **IDOR (Insecure Direct Object Reference)**
-- **NoSQL Injection**
+- **NoSQL Injection** (Using TinyDB)
 - **CSRF (Cross-Site Request Forgery)**
 - **XSS (Cross-Site Scripting)**
 - **Code Injection**
@@ -12,15 +12,15 @@ This project provides a **vulnerable API** for students to learn about common se
 
 ## Requirements
 - Python 3.x
-- MongoDB (for NoSQL injection tests)
-- SQLite (for SQL vulnerabilities)
+- SQLite (built into Python, no installation needed)
+- TinyDB (for NoSQL simulation)
 
 ## Setup & Installation
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/rafat1999/API-Penetration-Testing.git
-cd API-Penetration-Testing
+git clone https://github.com/yourusername/vulnerable-api-learning.git
+cd vulnerable-api-learning
 ```
 
 ### 2. Install Dependencies
@@ -28,17 +28,12 @@ cd API-Penetration-Testing
 pip install -r requirements.txt
 ```
 
-### 3. Start MongoDB (if not running)
-```bash
-sudo systemctl start mongod
-```
-
-### 4. Run the API
+### 3. Run the API
 ```bash
 python app.py
 ```
 
-### 5. Access the Web UI
+### 4. Access the Web UI
 Open your browser and go to:
 ```
 http://localhost:5000
@@ -51,7 +46,7 @@ http://localhost:5000
 curl "http://localhost:5000/idor/profile?user_id=1"
 ```
 
-### NoSQL Injection
+### NoSQL Injection (Using TinyDB)
 **URL:** `POST /nosql/login`
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"username":"admin","password":"password"}' "http://localhost:5000/nosql/login"
@@ -86,4 +81,3 @@ curl "http://localhost:5000/ssti?name={{7*7}}"
 
 ## License
 MIT License
-
