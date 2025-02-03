@@ -19,7 +19,7 @@ This project provides a **vulnerable API** for students to learn about common se
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/vulnerable-api-learning.git
+git clone https://github.com/rafat1999/API-Penetration-Testing.git
 cd vulnerable-api-learning
 ```
 
