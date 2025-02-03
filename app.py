@@ -7,6 +7,7 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hardcoded_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vulnerable.db'  # Using SQLite
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Suppress warning
 app.config['WTF_CSRF_ENABLED'] = False  # CSRF disabled
 app.config['DEBUG'] = True
 
@@ -26,6 +27,10 @@ class User(db.Model):
 def create_db():
     with app.app_context():
         db.create_all()
+
+@app.route('/')
+def home():
+    return "Vulnerable API is running!"
 
 @app.route('/idor/profile', methods=['GET'])
 def idor():
