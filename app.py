@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template, render_template_stri
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from tinydb import TinyDB, Query
+import pyrebase
 import os
 
 app = Flask(__name__)
@@ -18,6 +19,21 @@ csrf = CSRFProtect(app)
 tinydb = TinyDB('vulnerable_nosql.json')
 UserQuery = Query()
 
+# Firebase Configuration
+firebase_config = {
+    "apiKey": "AIzaSyBLU3Wbpw4p3w4J92YN36F0XCP5YJfhwCI",
+    "authDomain": "api-pentesting.firebaseapp.com",
+    "databaseURL": "https://console.firebase.google.com/project/api-pentesting/database/api-pentesting-default-rtdb/data/~2F",
+    "projectId": "api-pentesting",
+    "storageBucket": "api-pentesting.firebasestorage.app",
+    "messagingSenderId": "396886780019",
+    "appId": "1:396886780019:web:c86f4a9fed7becbcd52206"
+}
+
+firebase = pyrebase.initialize_app(firebase_config)
+auth = firebase.auth()
+db_firebase = firebase.database()
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -32,29 +48,27 @@ def create_db():
 def home():
     return render_template('index.html')  # Serve the index.html file
 
-@app.route('/idor')
-def idor_page():
-    return "<h1>IDOR Test Page</h1>"
+@app.route('/firebase/register', methods=['POST'])
+def firebase_register():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    try:
+        user = auth.create_user_with_email_and_password(email, password)
+        return jsonify({"message": "User registered successfully", "user_id": user['localId']})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
-@app.route('/nosql')
-def nosql_page():
-    return "<h1>NoSQL Injection Test Page</h1>"
-
-@app.route('/csrf')
-def csrf_page():
-    return "<h1>CSRF Test Page</h1>"
-
-@app.route('/xss')
-def xss_page():
-    return "<h1>XSS Test Page</h1>"
-
-@app.route('/code_injection')
-def code_injection_page():
-    return "<h1>Code Injection Test Page</h1>"
-
-@app.route('/ssti')
-def ssti_page():
-    return "<h1>Server-Side Template Injection (SSTI) Test Page</h1>"
+@app.route('/firebase/login', methods=['POST'])
+def firebase_login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    try:
+        user = auth.sign_in_with_email_and_password(email, password)
+        return jsonify({"message": "Login successful", "user_id": user['localId']})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
 
 if __name__ == '__main__':
     create_db()
