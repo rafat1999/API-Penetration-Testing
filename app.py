@@ -1,20 +1,16 @@
 from flask import Flask, request, jsonify, render_template_string, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
-from pymongo import MongoClient
-import re, os
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hardcoded_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vulnerable.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vulnerable.db'  # Changed to SQLite
 app.config['WTF_CSRF_ENABLED'] = False  # CSRF disabled
 app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 csrf = CSRFProtect(app)
-client = MongoClient('mongodb://localhost:27017/')
-mongo_db = client['vulnerable_db']
-mongo_users = mongo_db['users']
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,14 +29,6 @@ def idor():
     if user:
         return jsonify({"id": user.id, "username": user.username, "email": user.email})
     return jsonify({"error": "User not found"}), 404
-
-@app.route('/nosql/login', methods=['POST'])
-def nosql_login():
-    data = request.get_json()
-    user = mongo_users.find_one({"username": data['username'], "password": data['password']})
-    if user:
-        return jsonify({"message": "Login successful", "user_id": str(user['_id'])})
-    return jsonify({"message": "Login failed"}), 401
 
 @app.route('/csrf/post', methods=['POST'])
 def csrf_post():
@@ -69,4 +57,3 @@ def ssti():
 if __name__ == '__main__':
     create_db()
     app.run(host='0.0.0.0', port=5000)
-
