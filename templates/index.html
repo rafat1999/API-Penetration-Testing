@@ -16,8 +16,51 @@
         <li><a href="/ssti">Test Server-Side Template Injection (SSTI)</a></li>
     </ul>
 
+    <h2>IDOR Test Page</h2>
+    <p>Enter a user ID to access their profile (Insecure Direct Object Reference).</p>
+    <form action="/idor" method="get">
+        <input type="text" name="user_id" placeholder="Enter User ID">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>NoSQL Injection Test Page</h2>
+    <p>Try to bypass authentication with NoSQL Injection.</p>
+    <form action="/nosql" method="post">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+
+    <h2>CSRF Test Page</h2>
+    <p>Submit a form without CSRF protection.</p>
+    <form action="/csrf" method="post">
+        <input type="text" name="content" placeholder="Enter Content">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>XSS Test Page</h2>
+    <p>Enter text to check if the application is vulnerable to Cross-Site Scripting.</p>
+    <form action="/xss" method="post">
+        <input type="text" name="username" placeholder="Enter Name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Code Injection Test Page</h2>
+    <p>Enter Python code to execute on the server (vulnerable to code injection).</p>
+    <form action="/code_injection" method="post">
+        <input type="text" name="code" placeholder="Enter Code">
+        <button type="submit">Execute</button>
+    </form>
+
+    <h2>SSTI Test Page</h2>
+    <p>Enter text that could be evaluated as a template expression.</p>
+    <form action="/ssti" method="get">
+        <input type="text" name="name" placeholder="Enter Name">
+        <button type="submit">Render</button>
+    </form>
+
     <footer>
-        <p>&copy; 2025 Networking & Cyber Security Department of Creative IT Institute . All rights reserved.</p>
+        <p>&copy; 2025 Vulnerable API Learning. All rights reserved.</p>
     </footer>
 </body>
 </html>
