@@ -1,16 +1,21 @@
 from flask import Flask, request, jsonify, render_template_string, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
+from tinydb import TinyDB, Query
 import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hardcoded_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vulnerable.db'  # Changed to SQLite
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vulnerable.db'  # Using SQLite
 app.config['WTF_CSRF_ENABLED'] = False  # CSRF disabled
 app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 csrf = CSRFProtect(app)
+
+# TinyDB for NoSQL injection testing
+tinydb = TinyDB('vulnerable_nosql.json')
+UserQuery = Query()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,6 +34,14 @@ def idor():
     if user:
         return jsonify({"id": user.id, "username": user.username, "email": user.email})
     return jsonify({"error": "User not found"}), 404
+
+@app.route('/nosql/login', methods=['POST'])
+def nosql_login():
+    data = request.get_json()
+    user = tinydb.search((UserQuery.username == data['username']) & (UserQuery.password == data['password']))
+    if user:
+        return jsonify({"message": "Login successful", "user_id": user[0].doc_id})
+    return jsonify({"message": "Login failed"}), 401
 
 @app.route('/csrf/post', methods=['POST'])
 def csrf_post():
