@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template_string, session
+from flask import Flask, request, jsonify, render_template, render_template_string, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from tinydb import TinyDB, Query
@@ -30,7 +30,7 @@ def create_db():
 
 @app.route('/')
 def home():
-    return "Vulnerable API is running!"
+    return render_template('index.html')  # Serve the index.html file
 
 @app.route('/idor/profile', methods=['GET'])
 def idor():
