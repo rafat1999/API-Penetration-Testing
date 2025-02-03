@@ -22,18 +22,22 @@ This project provides a **vulnerable API** for students to learn about common se
 git clone https://github.com/rafat1999/API-Penetration-Testing.git
 cd API-Penetration-Testing
 ```
-
-### 2. Install Dependencies
+### 2. Create Virtual Environment
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the API
+### 4. Run the API
 ```bash
 python app.py
 ```
 
-### 4. Access the Web UI
+### 5. Access the Web UI
 Open your browser and go to:
 ```
 http://localhost:5000
