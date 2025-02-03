@@ -1,47 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Vulnerable API Learning</title>
+    <title>Vulnerable API</title>
 </head>
 <body>
-    <h1>Vulnerable API Testing</h1>
-    
-    <h2>IDOR</h2>
-    <form action="http://localhost:5000/idor/profile" method="GET">
-        <input type="text" name="user_id" placeholder="Enter User ID">
-        <button type="submit">Get Profile</button>
-    </form>
-    
-    <h2>NoSQL Injection</h2>
-    <form action="http://localhost:5000/nosql/login" method="POST">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Login</button>
-    </form>
-    
-    <h2>CSRF Attack</h2>
-    <form action="http://localhost:5000/csrf/post" method="POST">
-        <input type="text" name="content" placeholder="Enter Content">
-        <button type="submit">Submit</button>
-    </form>
-    
-    <h2>XSS</h2>
-    <form action="http://localhost:5000/xss" method="POST">
-        <input type="text" name="username" placeholder="Enter Username">
-        <button type="submit">Submit</button>
-    </form>
-    
-    <h2>Code Injection</h2>
-    <form action="http://localhost:5000/code_injection" method="POST">
-        <input type="text" name="code" placeholder="Enter Code">
-        <button type="submit">Execute</button>
-    </form>
-    
-    <h2>SSTI</h2>
-    <form action="http://localhost:5000/ssti" method="GET">
-        <input type="text" name="name" placeholder="Enter Name">
-        <button type="submit">Render</button>
-    </form>
+    <h1>Welcome to the Vulnerable API</h1>
+    <p>This API is intentionally vulnerable for learning purposes.</p>
+
+    <ul>
+        <li><a href="/idor">Test IDOR (Insecure Direct Object Reference)</a></li>
+        <li><a href="/nosql">Test NoSQL Injection</a></li>
+        <li><a href="/csrf">Test CSRF (Cross-Site Request Forgery)</a></li>
+        <li><a href="/xss">Test XSS (Cross-Site Scripting)</a></li>
+        <li><a href="/code_injection">Test Code Injection</a></li>
+        <li><a href="/ssti">Test Server-Side Template Injection (SSTI)</a></li>
+    </ul>
+
+    <footer>
+        <p>&copy; 2025 Vulnerable API Learning. All rights reserved.</p>
+    </footer>
 </body>
 </html>
-
