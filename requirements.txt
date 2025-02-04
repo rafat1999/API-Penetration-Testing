@@ -9,4 +9,4 @@ markupsafe==2.0.1
 werkzeug==2.0.2
 urllib3==1.26.6
 six
-pyrebase4
+requests-toolbelt==0.7.0
