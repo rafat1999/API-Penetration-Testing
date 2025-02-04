@@ -1,66 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Vulnerable API</title>
+    <meta charset="UTF-8">
+    <title>Vulnerability Demonstration</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .vulnerability-section {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Vulnerable API</h1>
-    <p>This API is intentionally vulnerable for learning purposes.</p>
+    <h1>Web Application Vulnerability Demonstration</h1>
 
-    <ul>
-        <li><a href="/idor">Test IDOR (Insecure Direct Object Reference)</a></li>
-        <li><a href="/nosql">Test NoSQL Injection</a></li>
-        <li><a href="/csrf">Test CSRF (Cross-Site Request Forgery)</a></li>
-        <li><a href="/xss">Test XSS (Cross-Site Scripting)</a></li>
-        <li><a href="/code_injection">Test Code Injection</a></li>
-        <li><a href="/ssti">Test Server-Side Template Injection (SSTI)</a></li>
-    </ul>
+    <div class="vulnerability-section">
+        <h2>1. IDOR (Insecure Direct Object Reference)</h2>
+        <form action="/user/sensitive-data/1" method="GET">
+            <input type="number" name="user_id" placeholder="Enter User ID">
+            <button type="submit">Retrieve Sensitive Data</button>
+        </form>
+    </div>
 
-    <h2>IDOR Test Page</h2>
-    <p>Enter a user ID to access their profile (Insecure Direct Object Reference).</p>
-    <form action="/idor" method="get">
-        <input type="text" name="user_id" placeholder="Enter User ID">
-        <button type="submit">Submit</button>
-    </form>
+    <div class="vulnerability-section">
+        <h2>2. NoSQL Injection</h2>
+        <form action="/nosql/complex-search" method="GET">
+            <input type="text" name="username" placeholder="Enter Username">
+            <button type="submit">Search</button>
+        </form>
+    </div>
 
-    <h2>NoSQL Injection Test Page</h2>
-    <p>Try to bypass authentication with NoSQL Injection.</p>
-    <form action="/nosql" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Login</button>
-    </form>
+    <div class="vulnerability-section">
+        <h2>3. XSS (Cross-Site Scripting)</h2>
+        <form action="/render-user-content" method="POST">
+            <textarea name="user_content" placeholder="Enter Content (Try adding script tags)"></textarea>
+            <button type="submit">Render Content</button>
+        </form>
+    </div>
 
-    <h2>CSRF Test Page</h2>
-    <p>Submit a form without CSRF protection.</p>
-    <form action="/csrf" method="post">
-        <input type="text" name="content" placeholder="Enter Content">
-        <button type="submit">Submit</button>
-    </form>
+    <div class="vulnerability-section">
+        <h2>4. CSRF (Cross-Site Request Forgery)</h2>
+        <form action="/transfer-funds" method="POST">
+            <input type="text" name="recipient" placeholder="Recipient">
+            <input type="number" name="amount" placeholder="Amount">
+            <button type="submit">Transfer Funds</button>
+        </form>
+    </div>
 
-    <h2>XSS Test Page</h2>
-    <p>Enter text to check if the application is vulnerable to Cross-Site Scripting.</p>
-    <form action="/xss" method="post">
-        <input type="text" name="username" placeholder="Enter Name">
-        <button type="submit">Submit</button>
-    </form>
-
-    <h2>Code Injection Test Page</h2>
-    <p>Enter Python code to execute on the server (vulnerable to code injection).</p>
-    <form action="/code_injection" method="post">
-        <input type="text" name="code" placeholder="Enter Code">
-        <button type="submit">Execute</button>
-    </form>
-
-    <h2>SSTI Test Page</h2>
-    <p>Enter text that could be evaluated as a template expression.</p>
-    <form action="/ssti" method="get">
-        <input type="text" name="name" placeholder="Enter Name">
-        <button type="submit">Render</button>
-    </form>
-
-    <footer>
-        <p>&copy; 2025 Vulnerable API Learning. All rights reserved.</p>
-    </footer>
+    <div class="vulnerability-section">
+        <h2>XSS Stored Demonstration</h2>
+        <form action="/stored-xss" method="POST">
+            <textarea name="comment" placeholder="Enter Comment (Try adding script)"></textarea>
+            <button type="submit">Store Comment</button>
+        </form>
+    </div>
 </body>
 </html>
