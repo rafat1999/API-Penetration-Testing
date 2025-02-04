@@ -1,1 +1,88 @@
+from app import app, db, User, UserProfile
+import hashlib
 
+def populate_vulnerable_database():
+    with app.app_context():
+        # Clear existing data
+        db.session.query(User).delete()
+        db.session.query(UserProfile).delete()
+        
+        # Create sample users with weak passwords and varying roles
+        users_data = [
+            {
+                'username': 'admin',
+                'email': 'admin@vulnerable.com',
+                'password': 'admin123',
+                'is_admin': True,
+                'role': 'admin'
+            },
+            {
+                'username': 'user1',
+                'email': 'user1@vulnerable.com',
+                'password': 'password123',
+                'is_admin': False,
+                'role': 'user'
+            },
+            {
+                'username': 'user2',
+                'email': 'user2@vulnerable.com',
+                'password': 'weakpassword',
+                'is_admin': False,
+                'role': 'user'
+            }
+        ]
+
+        # Create users with MD5 hashed passwords
+        for user_info in users_data:
+            # Create User
+            hashed_password = hashlib.md5(user_info['password'].encode()).hexdigest()
+            user = User(
+                username=user_info['username'],
+                email=user_info['email'],
+                password=hashed_password,
+                is_admin=user_info['is_admin'],
+                role=user_info['role']
+            )
+            db.session.add(user)
+        
+        # Commit users to get their IDs
+        db.session.commit()
+
+        # Create user profiles with sensitive data
+        profiles_data = [
+            {
+                'user_id': User.query.filter_by(username='admin').first().id,
+                'full_name': 'Admin User',
+                'address': 'Admin Headquarters, Secret Location',
+                'phone_number': '1234567890',
+                'sensitive_data': 'Top Secret Admin Credentials'
+            },
+            {
+                'user_id': User.query.filter_by(username='user1').first().id,
+                'full_name': 'John Doe',
+                'address': '123 Vulnerable Street, Hacktown',
+                'phone_number': '9876543210',
+                'sensitive_data': 'User1 Confidential Information'
+            },
+            {
+                'user_id': User.query.filter_by(username='user2').first().id,
+                'full_name': 'Jane Smith',
+                'address': '456 Insecure Avenue, Breachville',
+                'phone_number': '5555555555',
+                'sensitive_data': 'User2 Private Details'
+            }
+        ]
+
+        # Create user profiles
+        for profile_info in profiles_data:
+            profile = UserProfile(**profile_info)
+            db.session.add(profile)
+        
+        # Commit all changes
+        db.session.commit()
+
+        print("Vulnerable database populated successfully!")
+
+# Run the population script
+if __name__ == '__main__':
+    populate_vulnerable_database()
