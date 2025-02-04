@@ -10,3 +10,10 @@ werkzeug==2.0.2
 urllib3==1.26.6
 six
 requests-toolbelt==0.7.0
+flask
+flask-sqlalchemy
+flask-wtf
+tinydb
+requests>=2.19.1
+requests-toolbelt>=0.7.1
+pyrebase4
