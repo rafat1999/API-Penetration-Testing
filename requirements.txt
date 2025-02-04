@@ -4,6 +4,6 @@ flask-wtf==1.0.0
 tinydb==4.7.0
 pyrebase==3.0.27
 python-dotenv==0.19.2
-requests==2.26.0
+requests==2.11.1
 markupsafe==2.0.1
 werkzeug==2.0.2
