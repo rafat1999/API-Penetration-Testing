@@ -11,21 +11,28 @@ def populate_vulnerable_database():
         users_data = [
             {
                 'username': 'admin',
-                'email': 'admin@vulnerable.com',
-                'password': 'admin123',
+                'email': 'rafat.cit.bd@gmail.com',
+                'password': '#admin@123',
                 'is_admin': True,
                 'role': 'admin'
             },
             {
-                'username': 'user1',
-                'email': 'user1@vulnerable.com',
-                'password': 'password123',
+                'username': 'Mehedi hasan Babu',
+                'email': 'mehedi.cit.bd@gmail.com',
+                'password': 'mehedi@cit123',
                 'is_admin': False,
                 'role': 'user'
             },
             {
-                'username': 'user2',
-                'email': 'user2@vulnerable.com',
+                'username': 'Rafsan Anwar',
+                'email': 'rafsan.cit.bd@gmail.com',
+                'password': 'rafsan@123',
+                'is_admin': False,
+                'role': 'user'
+            },
+            {
+                'username': 'Students',
+                'email': 'students.cit.bd@gmail.com',
                 'password': 'weakpassword',
                 'is_admin': False,
                 'role': 'user'
@@ -52,24 +59,31 @@ def populate_vulnerable_database():
         profiles_data = [
             {
                 'user_id': User.query.filter_by(username='admin').first().id,
-                'full_name': 'Admin User',
-                'address': 'Admin Headquarters, Secret Location',
-                'phone_number': '1234567890',
+                'full_name': 'Creative IT Institute',
+                'address': 'Dhanmondi, Dhaka-1205',
+                'phone_number': '01726732321',
                 'sensitive_data': 'Top Secret Admin Credentials'
             },
             {
-                'user_id': User.query.filter_by(username='user1').first().id,
-                'full_name': 'John Doe',
-                'address': '123 Vulnerable Street, Hacktown',
-                'phone_number': '9876543210',
+                'user_id': User.query.filter_by(username='Mehedi hasan Babu').first().id,
+                'full_name': 'Mehedi hasan Babu',
+                'address': 'Dhanmondi Dhaka-1205',
+                'phone_number': '01726732321',
                 'sensitive_data': 'User1 Confidential Information'
             },
             {
-                'user_id': User.query.filter_by(username='user2').first().id,
-                'full_name': 'Jane Smith',
-                'address': '456 Insecure Avenue, Breachville',
-                'phone_number': '5555555555',
+                'user_id': User.query.filter_by(username='Rafsan Anwar').first().id,
+                'full_name': 'Rafsan Anwar',
+                'address': 'Dhanmondi, Dhaka-1205',
+                'phone_number': '01726732321',
                 'sensitive_data': 'User2 Private Details'
+            },
+            {
+                'user_id': User.query.filter_by(username='Students').first().id,
+                'full_name': 'Students',
+                'address': 'Dhanmondi, Dhaka-1205',
+                'phone_number': '01726732321',
+                'sensitive_data': 'Students Private Details'
             }
         ]
 
